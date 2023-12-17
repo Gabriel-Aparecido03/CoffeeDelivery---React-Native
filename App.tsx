@@ -1,20 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
+
+import { useFonts as useFontsBaloo, Baloo2_700Bold } from '@expo-google-fonts/baloo-2';
+import { useFonts as useFontsRoboto, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
+import { Routes } from './src/routes';
+import { CartContextProvider } from './src/context/CartContext';
 
 export default function App() {
+
+  const [isLoadedBaloo] = useFontsBaloo({ Baloo2_700Bold })
+  const [isLoaddedRoboto] = useFontsRoboto({ Roboto_400Regular, Roboto_700Bold })
+
+  if (!isLoadedBaloo || !isLoaddedRoboto) return <View></View>
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={{ flex: 1 }}>
+      <StatusBar style="light" backgroundColor='transparent' translucent />
+      <CartContextProvider>
+        <Routes />
+      </CartContextProvider>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
